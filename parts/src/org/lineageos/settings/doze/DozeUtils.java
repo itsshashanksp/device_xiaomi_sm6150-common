@@ -37,6 +37,8 @@ import androidx.preference.PreferenceManager;
 import org.lineageos.settings.R;
 import org.lineageos.settings.utils.FileUtils;
 
+import vendor.xiaomi.hardware.displayfeature.V1_0.IDisplayFeature;
+
 public final class DozeUtils {
     private static final String TAG = "DozeUtils";
     private static final boolean DEBUG = false;
@@ -53,6 +55,10 @@ public final class DozeUtils {
     protected static final String GESTURE_PICK_UP_KEY = "gesture_pick_up";
     protected static final String GESTURE_HAND_WAVE_KEY = "gesture_hand_wave";
     protected static final String GESTURE_POCKET_KEY = "gesture_pocket";
+
+    protected static final String DC_DIMMING_ENABLE_KEY = "dc_dimming_enable";
+
+    private static IDisplayFeature mDisplayFeature;
 
     protected static final String DOZE_MODE_PATH =
             "/sys/devices/platform/soc/soc:qcom,dsi-display/doze_mode";
@@ -213,5 +219,13 @@ public final class DozeUtils {
                 preference.setIcon(R.drawable.ic_doze_brightness_auto);
                 break;
         }
+    }
+
+    public static void enableDcDimming(int enable) {
+        try {
+              mDisplayFeature = IDisplayFeature.getService();
+              mDisplayFeature.setFeature(0, 20, enable, 255);
+            } catch(Exception e) {
+            }
     }
 }
