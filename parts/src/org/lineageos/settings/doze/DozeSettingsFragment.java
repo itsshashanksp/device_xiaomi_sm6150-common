@@ -47,7 +47,6 @@ public class DozeSettingsFragment extends PreferenceFragment
     private SwitchPreference mAlwaysOnDisplayPreference;
     private ListPreference mDozeBrightnessPreference;
     private SwitchPreference mWakeOnGesturePreference;
-    private SwitchPreference mDcDimmingPreference;
     private SwitchPreference mPickUpPreference;
     private SwitchPreference mHandwavePreference;
     private SwitchPreference mPocketPreference;
@@ -103,10 +102,6 @@ public class DozeSettingsFragment extends PreferenceFragment
         mPocketPreference.setEnabled(dozeEnabled);
         mPocketPreference.setOnPreferenceChangeListener(this);
 
-        mDcDimmingPreference = (SwitchPreference) findPreference(DozeUtils.DC_DIMMING_ENABLE_KEY);
-        mDcDimmingPreference.setEnabled(true);
-        mDcDimmingPreference.setOnPreferenceChangeListener(this);
-
         // Hide proximity sensor related features if the device doesn't support them
         if (!DozeUtils.getProxCheckBeforePulse(getActivity())) {
             getPreferenceScreen().removePreference(proximitySensorCategory);
@@ -145,8 +140,6 @@ public class DozeSettingsFragment extends PreferenceFragment
             if (!DozeUtils.DOZE_BRIGHTNESS_AUTO.equals((String) newValue)) {
                 DozeUtils.setDozeMode((String) newValue);
             }
-        } else if (DozeUtils.DC_DIMMING_ENABLE_KEY.equals(preference.getKey())) {
-            DozeUtils.enableDcDimming((Boolean) newValue ? 1 : 0);
         }
 
         mHandler.post(() -> {
