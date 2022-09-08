@@ -139,6 +139,7 @@
 
         <activity
             android:name=".display.DcDimmingSettingsActivity"
+            android:exported="true"
             android:label="@string/dc_dimming_enable_title"
             android:theme="@style/Theme.SubSettingsBase">
             <intent-filter>
@@ -155,6 +156,7 @@
 
         <service
             android:name=".display.tile.DcDimmingTile"
+            android:exported="true"
             android:icon="@drawable/ic_dimming_off"
             android:label="@string/dc_dimming_tile_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
